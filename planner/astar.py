@@ -1,4 +1,5 @@
 import heapq
+import numpy as np
 
 # ========================
 # A* Pathfinding Skeleton
@@ -17,7 +18,11 @@ def heuristic(node, goal):
     Common: Manhattan, Euclidean, Diagonal
     I am assuming Manhattan and not Chebyshev or Minkowski, given is a 2d env
     """
-    return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
+    # 4 dir implementation commented below
+    # return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
+    dx = abs(node[0] - goal[0])
+    dy = abs(node[1] - goal[1])
+    return max(dx, dy) + (np.sqrt(2) - 1) * min(dx, dy)
 
 # Task 2: Get neighbour nodes (up, down, left, right, or 8 directions)
 # Input: current node, map/grid
@@ -35,7 +40,7 @@ def get_neighbours(node, grid):
         nx, ny = node[0] + dx, node[1] + dy
         if 0 <= nx < grid.shape[0] and 0 <= ny < grid.shape[1]:
             if grid[nx, ny] == 0:
-                neighbours.append((nx, ny))
+                neighbours.append(((nx, ny), dx, dy))
     return neighbours
 
 # Task 3: Reconstruct path from came_from dict
@@ -78,8 +83,8 @@ def astar(grid, start, goal):
         current_f, current = heapq.heappop(open_set)
         if current == goal:
             return reconstruct_path(came_from, current)
-        for neighbour in get_neighbours(current, grid):
-            tentative_g = g[current] + 1
+        for (neighbour, dx, dy) in get_neighbours(current, grid):
+            tentative_g = g[current] + np.hypot(dx, dy)  # and not 1
             if neighbour not in g or tentative_g < g[neighbour]:
                 came_from[neighbour] = current
                 g[neighbour] = tentative_g
