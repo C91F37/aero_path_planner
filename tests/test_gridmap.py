@@ -2,13 +2,6 @@ import matplotlib.pyplot as plt
 from utils.grid_map import create_empty_grid, add_random_obstacles, add_wall
 
 
-# def test_grid_map():
-#     w, h = 10, 20
-#     g = create_empty_grid(w, h)
-
-#     add_random_obstacles(g, 0.4, 42, exclude=)
-
-
 def test_grid_map():
     width, height = 20, 20
     grid = create_empty_grid(width, height)
