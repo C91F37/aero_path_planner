@@ -15,7 +15,7 @@ The project simulates drone-like dynamics and emphasizes ESDF-integrated plannin
 
 ## ✨ Features
 
-- ✅ 3D grid map representation with 6/8/26-neighbour A* search
+- ✅ 3D grid map representation with 8-neighbour A* search
 - ✅ B-spline or cubic smoothing for trajectory continuity and feasibility
 - ✅ Visual debugging support using `matplotlib` or optional `RViz` dump
 - ✅ Modular design for plugging into control pipelines or benchmark suites
